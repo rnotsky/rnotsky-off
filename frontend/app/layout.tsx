@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -53,6 +54,8 @@ export default function RootLayout({
 
           <Footer />
         </div>
+
+        <Analytics />
       </body>
     </html>
   );
