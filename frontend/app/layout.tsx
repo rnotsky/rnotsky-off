@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import PageGlow from "@/components/ui/PageGlow";
+import LayoutContent from "@/components/layout/LayoutContent";
 
 import "./globals.css";
 
@@ -40,19 +38,7 @@ export default function RootLayout({
           antialiased
         "
       >
-        {/* Global Purple Glow */}
-        <PageGlow />
-
-        {/* Website Content */}
-        <div className="relative z-10">
-          <Navbar />
-
-          <main className="min-h-screen">
-            {children}
-          </main>
-
-          <Footer />
-        </div>
+        <LayoutContent>{children}</LayoutContent>
       </body>
     </html>
   );
