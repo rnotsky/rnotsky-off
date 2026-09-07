@@ -11,8 +11,33 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Rnotsky",
-  description: "Building Tomorrow's Technology",
+  metadataBase: new URL("https://rnotsky.com"),
+
+  title: {
+    default: "Rnotsky — Building Tomorrow's Technology",
+    template: "%s | Rnotsky",
+  },
+
+  description:
+    "Rnotsky builds AI, software, computer vision, robotics, and next-generation technology.",
+
+  alternates: {
+    canonical: "https://rnotsky.com",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  openGraph: {
+    type: "website",
+    url: "https://rnotsky.com",
+    siteName: "Rnotsky",
+    title: "Rnotsky — Building Tomorrow's Technology",
+    description:
+      "Rnotsky builds AI, software, computer vision, robotics, and next-generation technology.",
+  },
 
   icons: {
     icon: "/icons/ai.png",
