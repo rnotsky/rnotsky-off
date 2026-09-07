@@ -13,27 +13,38 @@ const softwareProducts = [
 
 export default function SoftwarePage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-black text-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden px-5 pb-20 pt-32 sm:px-8 sm:pt-40 lg:px-10 lg:pt-44">
-        {/* Purple glow */}
+    <main className="relative min-h-screen w-full max-w-[100vw] overflow-x-clip bg-black text-white">
+      {/* =========================================================
+          HERO
+      ========================================================== */}
+
+      <section
+        className="
+          relative isolate w-full max-w-[100vw]
+          overflow-x-clip
+          bg-black
+          px-5 pt-16 pb-24
+          sm:px-8 sm:pt-20 sm:pb-28
+          lg:px-12 lg:pt-24 lg:pb-36
+          xl:px-16
+        "
+      >
+        {/* Subtle purple atmosphere */}
         <div
           aria-hidden="true"
           className="
-            pointer-events-none
-            absolute
-            left-1/2
-            top-0
-            h-[420px]
-            w-[900px]
+            pointer-events-none absolute
+            left-1/2 top-[-260px]
+            z-0 h-[520px] w-[900px]
+            max-w-[100vw]
             -translate-x-1/2
             rounded-full
-            bg-purple-700/15
-            blur-[140px]
+            bg-purple-700/[0.025]
+            blur-[170px]
           "
         />
 
-        <div className="relative mx-auto max-w-[1200px]">
+        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
           {/* Back */}
           <Link
             href="/products"
@@ -43,16 +54,17 @@ export default function SoftwarePage() {
               items-center
               gap-2
               text-sm
-              text-white/35
+              font-medium
+              text-white/40
               transition-colors
               duration-300
-              hover:text-white
+              hover:text-purple-300
             "
           >
             <ArrowLeft
+              aria-hidden="true"
               className="
-                h-4
-                w-4
+                h-4 w-4
                 transition-transform
                 duration-300
                 group-hover:-translate-x-1
@@ -62,44 +74,59 @@ export default function SoftwarePage() {
             Products
           </Link>
 
-          {/* Heading */}
-          <div className="mt-14 max-w-4xl">
-            <div className="flex items-center gap-3">
-              {/* Purple dot */}
-              <span className="relative h-3.5 w-3.5">
-                <span className="absolute inset-0 rounded-full bg-purple-500/20 blur-md" />
+          {/* Header */}
+          <div className="mt-14 max-w-3xl">
+            {/* Section label */}
+            <p
+              className="
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[0.3em]
+                text-purple-400
+                sm:text-sm
+              "
+            >
+              RNOTSKY Software
+            </p>
 
-                <span className="absolute inset-[3px] rounded-full bg-purple-400/30 animate-pulse" />
-
-                <span className="absolute inset-[5px] rounded-full bg-purple-300" />
-              </span>
-
-              <span className="text-xs font-medium uppercase tracking-[0.25em] text-purple-300/70">
-                RNOTSKY Software
-              </span>
-            </div>
-
+            {/* Heading */}
             <h1
               className="
-                mt-6
-                text-5xl
-                font-semibold
-                tracking-[-0.05em]
-                text-white
-                sm:text-6xl
-                lg:text-8xl
+                mt-5
+                text-3xl
+                font-extrabold
+                leading-[1.08]
+                tracking-[-0.04em]
+                sm:text-4xl
+                md:text-5xl
+                lg:text-6xl
               "
             >
               Software
+              <span
+                className="
+                  block
+                  bg-gradient-to-r
+                  from-purple-300
+                  via-violet-500
+                  to-fuchsia-500
+                  bg-clip-text
+                  text-transparent
+                "
+              >
+                built for what's next.
+              </span>
             </h1>
 
+            {/* Description */}
             <p
               className="
-                mt-7
+                mt-6
                 max-w-2xl
                 text-base
                 leading-7
-                text-white/40
+                text-[#94a8bd]
                 sm:text-lg
                 sm:leading-8
               "
@@ -111,196 +138,290 @@ export default function SoftwarePage() {
         </div>
       </section>
 
-      {/* Software products */}
-      <section className="relative px-5 pb-32 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-[1500px]">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+      {/* =========================================================
+          SOFTWARE PRODUCTS
+      ========================================================== */}
+
+      <section
+        className="
+          relative isolate w-full max-w-[100vw]
+          overflow-x-clip
+          bg-black
+          px-5 pb-24
+          sm:px-8 sm:pb-28
+          lg:px-12 lg:pb-36
+          xl:px-16
+        "
+      >
+        {/* Subtle bottom atmosphere */}
+        <div
+          aria-hidden="true"
+          className="
+            pointer-events-none absolute
+            bottom-[-220px]
+            right-[-180px]
+            z-0
+            h-[450px]
+            w-[450px]
+            max-w-[100vw]
+            rounded-full
+            bg-purple-700/[0.018]
+            blur-[150px]
+          "
+        />
+
+        <div className="relative z-10 mx-auto w-full max-w-[1400px]">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {softwareProducts.map((product) => (
               <article
                 key={product.name}
                 className="
                   group
                   relative
+                  flex
+                  min-h-[330px]
+                  w-full
+                  flex-col
                   overflow-hidden
-                  rounded-[2rem]
+                  rounded-[22px]
                   border
-                  border-purple-500/[0.10]
-                  bg-gradient-to-br
-                  from-white/[0.045]
-                  via-white/[0.018]
-                  to-transparent
-                  p-7
-                  backdrop-blur-xl
+                  border-white/[0.12]
+                  bg-black
+                  px-7
+                  py-7
                   transition-all
                   duration-500
-                  hover:-translate-y-1.5
-                  hover:border-purple-400/20
-                  sm:p-9
+                  ease-out
+
+                  hover:-translate-y-[2px]
+                  hover:border-purple-500/[0.70]
+                  hover:bg-black
+                  hover:shadow-[0_0_45px_rgba(168,85,247,0.13),0_25px_70px_rgba(0,0,0,0.65)]
+
+                  sm:min-h-[350px]
+                  sm:px-7
+                  sm:py-7
+
+                  lg:px-8
+                  lg:py-8
                 "
               >
+                {/* Inner purple glow */}
+                <div
+                  aria-hidden="true"
+                  className="
+                    pointer-events-none
+                    absolute
+                    left-1/2
+                    top-1/2
+                    h-[300px]
+                    w-[300px]
+                    -translate-x-1/2
+                    -translate-y-1/2
+                    rounded-full
+                    bg-purple-600/[0.05]
+                    blur-[100px]
+                    opacity-0
+                    transition-all
+                    duration-700
+                    group-hover:scale-110
+                    group-hover:opacity-100
+                  "
+                />
+
                 {/* Top highlight */}
                 <div
                   aria-hidden="true"
                   className="
                     pointer-events-none
                     absolute
-                    inset-x-6
+                    left-[8%]
+                    right-[8%]
                     top-0
                     h-px
                     bg-gradient-to-r
                     from-transparent
-                    via-purple-400/30
+                    via-purple-400
                     to-transparent
-                  "
-                />
-
-                {/* Upper-left glow */}
-                <div
-                  aria-hidden="true"
-                  className="
-                    pointer-events-none
-                    absolute
-                    left-0
-                    top-0
-                    h-40
-                    w-40
-                    rounded-full
-                    bg-purple-600/[0.07]
-                    blur-[80px]
-                    transition-all
+                    opacity-0
+                    transition-opacity
                     duration-500
-                    group-hover:bg-purple-500/[0.12]
+                    group-hover:opacity-80
                   "
                 />
-
-                {/* Purple glowing dot */}
-                <div className="absolute left-7 top-7 h-4 w-4 sm:left-8 sm:top-8">
-                  <span className="absolute inset-0 rounded-full bg-purple-500/20 blur-md" />
-
-                  <span className="absolute inset-[3px] rounded-full bg-purple-400/30 animate-pulse" />
-
-                  <span className="absolute inset-[5px] rounded-full bg-purple-300" />
-                </div>
 
                 {/* Content */}
-                <div className="relative pt-10">
-                  {/* Status */}
-                  <div className="flex justify-end">
+                <div className="relative z-10 flex h-full flex-1 flex-col">
+                  {/* Top row */}
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex min-w-0 items-center gap-3">
+                      <span
+                        aria-hidden="true"
+                        className="
+                          h-1.5
+                          w-1.5
+                          shrink-0
+                          rounded-full
+                          bg-purple-400
+                          shadow-[0_0_8px_rgba(168,85,247,0.7)]
+                          transition-all
+                          duration-300
+                          group-hover:scale-125
+                          group-hover:bg-purple-300
+                          group-hover:shadow-[0_0_15px_rgba(168,85,247,0.95)]
+                        "
+                      />
+
+                      <span
+                        className="
+                          truncate
+                          text-[11px]
+                          font-semibold
+                          uppercase
+                          tracking-[0.18em]
+                          text-purple-400
+                          transition-colors
+                          duration-300
+                          group-hover:text-purple-300
+                        "
+                      >
+                        RNOTSKY SOFTWARE
+                      </span>
+                    </div>
+
                     <span
                       className="
-                        rounded-full
-                        border
-                        border-purple-400/[0.12]
-                        bg-purple-500/[0.05]
-                        px-3
-                        py-1.5
-                        text-[10px]
+                        shrink-0
+                        text-[11px]
                         font-semibold
                         uppercase
-                        tracking-[0.16em]
-                        text-purple-300/70
+                        tracking-[0.18em]
+                        text-white/50
+                        transition-colors
+                        duration-300
+                        group-hover:text-purple-300
                       "
                     >
                       Coming Soon
                     </span>
                   </div>
 
-                  {/* Name */}
-                  <h2
-                    className="
-                      mt-5
-                      text-3xl
-                      font-semibold
-                      tracking-[-0.04em]
-                      text-white
-                      transition-colors
-                      duration-300
-                      group-hover:text-purple-100
-                    "
-                  >
-                    {product.name}
-                  </h2>
-
-                  {/* Description */}
-                  <p
-                    className="
-                      mt-4
-                      max-w-xl
-                      text-sm
-                      leading-7
-                      text-gray-500
-                      transition-colors
-                      duration-300
-                      group-hover:text-gray-400
-                    "
-                  >
-                    {product.description}
-                  </p>
-
-                  {/* Metadata */}
-                  <div className="mt-7 flex flex-wrap gap-2">
-                    <span
+                  {/* Product content */}
+                  <div className="mt-8">
+                    <h2
                       className="
-                        rounded-full
-                        border
-                        border-white/[0.06]
-                        bg-white/[0.025]
-                        px-3
-                        py-1.5
-                        text-[10px]
-                        uppercase
-                        tracking-[0.12em]
-                        text-white/25
+                        max-w-[500px]
+                        text-[26px]
+                        font-bold
+                        leading-[1.2]
+                        tracking-[-0.035em]
+                        text-white
+                        transition-colors
+                        duration-300
+                        group-hover:text-purple-300
+                        sm:text-[28px]
                       "
                     >
-                      {product.platform}
-                    </span>
+                      {product.name}
+                    </h2>
 
-                    <span
+                    <p
                       className="
-                        rounded-full
-                        border
-                        border-white/[0.06]
-                        bg-white/[0.025]
-                        px-3
-                        py-1.5
-                        text-[10px]
-                        uppercase
-                        tracking-[0.12em]
-                        text-white/25
+                        mt-5
+                        max-w-[500px]
+                        text-[14px]
+                        leading-[1.75]
+                        text-[#8296ad]
+                        transition-colors
+                        duration-300
+                        group-hover:text-[#a9b8c9]
                       "
                     >
-                      {product.type}
-                    </span>
+                      {product.description}
+                    </p>
+
+                    {/* Metadata */}
+                    <div className="mt-7 flex flex-wrap gap-2">
+                      <span
+                        className="
+                          rounded-full
+                          border
+                          border-white/[0.09]
+                          bg-white/[0.025]
+                          px-3
+                          py-1.5
+                          text-[10px]
+                          font-medium
+                          uppercase
+                          tracking-[0.12em]
+                          text-white/45
+                          transition-all
+                          duration-300
+                          group-hover:border-purple-400/[0.18]
+                          group-hover:bg-purple-500/[0.04]
+                          group-hover:text-white/60
+                        "
+                      >
+                        {product.platform}
+                      </span>
+
+                      <span
+                        className="
+                          rounded-full
+                          border
+                          border-white/[0.09]
+                          bg-white/[0.025]
+                          px-3
+                          py-1.5
+                          text-[10px]
+                          font-medium
+                          uppercase
+                          tracking-[0.12em]
+                          text-white/45
+                          transition-all
+                          duration-300
+                          group-hover:border-purple-400/[0.18]
+                          group-hover:bg-purple-500/[0.04]
+                          group-hover:text-white/60
+                        "
+                      >
+                        {product.type}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Coming soon */}
-                  <div
-                    className="
-                      mt-8
-                      inline-flex
-                      items-center
-                      gap-2
-                      text-sm
-                      font-medium
-                      text-gray-500
-                      transition-all
-                      duration-300
-                      group-hover:gap-3
-                      group-hover:text-purple-300
-                    "
-                  >
-                    Coming soon
-
-                    <ArrowUpRight
+                  {/* Bottom action */}
+                  <div className="mt-auto pt-8">
+                    <div
                       className="
-                        h-4
-                        w-4
-                        transition-transform
+                        inline-flex
+                        items-center
+                        gap-2
+                        text-[15px]
+                        font-semibold
+                        tracking-[-0.01em]
+                        text-purple-400
+                        transition-all
                         duration-300
-                        group-hover:rotate-45
+                        group-hover:gap-3
+                        group-hover:text-purple-300
+                        group-hover:[text-shadow:0_0_18px_rgba(168,85,247,0.35)]
                       "
-                    />
+                    >
+                      <span>Coming soon</span>
+
+                      <ArrowUpRight
+                        aria-hidden="true"
+                        className="
+                          h-4
+                          w-4
+                          transition-transform
+                          duration-300
+                          group-hover:translate-x-1
+                          group-hover:-translate-y-1
+                        "
+                      />
+                    </div>
                   </div>
                 </div>
               </article>

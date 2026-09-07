@@ -21,31 +21,54 @@ export default function UpdatesFilters() {
   ];
 
   return (
-    <div className="mb-12 flex flex-wrap justify-center gap-2 sm:mb-16">
+    <div className="mb-12 flex flex-wrap justify-center gap-8 sm:mb-16 sm:gap-10">
       {filters.map((filter) => {
         const isActive = active === filter.id;
 
         return (
           <button
             key={filter.id}
+            type="button"
             onClick={() => setActive(filter.id)}
             className={`
-              rounded-full
-              border
-              px-5
-              py-2.5
+              group
+              relative
+              pb-2
               text-sm
-              font-medium
+              font-semibold
+              tracking-[-0.01em]
               transition-all
               duration-300
 
               ${
                 isActive
-                  ? "border-purple-500/40 bg-purple-500/10 text-purple-300 shadow-[0_0_25px_rgba(168,85,247,0.08)]"
-                  : "border-white/[0.08] bg-white/[0.02] text-gray-500 hover:border-purple-500/20 hover:text-gray-300"
+                  ? "text-purple-300"
+                  : "text-gray-500 hover:text-white"
               }
             `}
           >
+            {/* Purple active indicator */}
+            <span
+              aria-hidden="true"
+              className={`
+                absolute
+                bottom-0
+                left-1/2
+                h-[2px]
+                -translate-x-1/2
+                rounded-full
+                bg-purple-400
+                transition-all
+                duration-300
+
+                ${
+                  isActive
+                    ? "w-6 opacity-100 shadow-[0_0_12px_rgba(168,85,247,0.7)]"
+                    : "w-0 opacity-0"
+                }
+              `}
+            />
+
             {filter.label}
           </button>
         );

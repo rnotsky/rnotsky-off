@@ -55,10 +55,7 @@ export default function AIChat() {
           "I couldn't generate a response right now.",
       };
 
-      setMessages((current) => [
-        ...current,
-        assistantMessage,
-      ]);
+      setMessages((current) => [...current, assistantMessage]);
     } catch (error) {
       console.error("RNOTSKY AI error:", error);
 
@@ -69,10 +66,7 @@ export default function AIChat() {
           "Sorry, something went wrong while connecting to RNOTSKY AI. Please try again.",
       };
 
-      setMessages((current) => [
-        ...current,
-        errorMessage,
-      ]);
+      setMessages((current) => [...current, errorMessage]);
     } finally {
       setLoading(false);
     }
@@ -85,15 +79,16 @@ export default function AIChat() {
         mx-auto
         w-full
         max-w-[1100px]
-        px-4
+        min-w-0
+        overflow-hidden
+        px-0
         pb-20
-        sm:px-6
+        sm:px-0
         sm:pb-28
-        lg:px-8
         lg:pb-32
       "
     >
-      {/* Soft purple atmosphere behind chat */}
+      {/* Purple atmosphere */}
       <div
         aria-hidden="true"
         className="
@@ -103,6 +98,7 @@ export default function AIChat() {
           top-10
           h-[500px]
           w-[850px]
+          max-w-none
           -translate-x-1/2
           rounded-full
           bg-purple-700/[0.06]
@@ -110,12 +106,15 @@ export default function AIChat() {
         "
       />
 
-      {/* Glass Chat Container */}
+      {/* Chat container */}
       <div
         className="
           relative
+          w-full
+          min-w-0
+          max-w-full
           overflow-hidden
-          rounded-[30px]
+          rounded-[24px]
           border
           border-white/[0.10]
           bg-white/[0.025]
@@ -123,9 +122,10 @@ export default function AIChat() {
           backdrop-blur-3xl
           ring-1
           ring-purple-500/[0.04]
+          sm:rounded-[30px]
         "
       >
-        {/* Glass top reflection */}
+        {/* Top reflection */}
         <div
           aria-hidden="true"
           className="
@@ -141,7 +141,7 @@ export default function AIChat() {
           "
         />
 
-        {/* Very subtle inner glass gradient */}
+        {/* Inner glass */}
         <div
           aria-hidden="true"
           className="
@@ -155,27 +155,29 @@ export default function AIChat() {
           "
         />
 
-        {/* =========================
-            EMPTY CHAT
-        ========================== */}
-
+        {/* Empty chat */}
         {messages.length === 0 && (
           <div
             className="
               relative
               flex
               min-h-[430px]
+              w-full
+              min-w-0
+              max-w-full
               flex-col
               items-center
               justify-center
-              px-6
+              overflow-hidden
+              px-4
               py-16
               text-center
               sm:min-h-[480px]
+              sm:px-6
             "
           >
             {/* AI Logo */}
-            <div className="relative mb-7">
+            <div className="relative mb-7 shrink-0">
               <div
                 aria-hidden="true"
                 className="
@@ -194,6 +196,7 @@ export default function AIChat() {
                   relative
                   h-16
                   w-16
+                  shrink-0
                   object-contain
                   drop-shadow-[0_0_22px_rgba(168,85,247,0.5)]
                 "
@@ -202,6 +205,7 @@ export default function AIChat() {
 
             <h2
               className="
+                max-w-full
                 text-xl
                 font-semibold
                 tracking-tight
@@ -215,19 +219,31 @@ export default function AIChat() {
             <p
               className="
                 mt-3
+                w-full
                 max-w-[520px]
+                px-2
                 text-sm
                 leading-6
                 text-white/35
                 sm:text-[15px]
               "
             >
-              Ask questions, explore ideas, solve problems or
-              build something with RNOTSKY AI.
+              Ask questions, explore ideas, solve problems or build
+              something with RNOTSKY AI.
             </p>
 
             {/* Suggestions */}
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
+            <div
+              className="
+                mt-8
+                flex
+                w-full
+                max-w-full
+                flex-wrap
+                justify-center
+                gap-2
+              "
+            >
               {[
                 "Explain AI",
                 "Help me code",
@@ -239,6 +255,7 @@ export default function AIChat() {
                   type="button"
                   onClick={() => handleSend(suggestion)}
                   className="
+                    max-w-full
                     rounded-full
                     border
                     border-white/[0.08]
@@ -263,16 +280,17 @@ export default function AIChat() {
           </div>
         )}
 
-        {/* =========================
-            MESSAGES
-        ========================== */}
-
+        {/* Messages */}
         {messages.length > 0 && (
           <div
             className="
               relative
               min-h-[430px]
+              w-full
+              min-w-0
+              max-w-full
               space-y-8
+              overflow-hidden
               px-4
               py-7
               sm:min-h-[480px]
@@ -290,7 +308,15 @@ export default function AIChat() {
 
             {/* Loading */}
             {loading && (
-              <div className="flex items-start gap-3">
+              <div
+                className="
+                  flex
+                  w-full
+                  min-w-0
+                  items-start
+                  gap-3
+                "
+              >
                 <img
                   src="/icons/ai.png"
                   alt="RNOTSKY AI"
@@ -307,40 +333,39 @@ export default function AIChat() {
 
                 <div
                   className="
+                    min-w-0
+                    max-w-[calc(100%-44px)]
                     rounded-[20px]
                     rounded-tl-md
                     border
                     border-white/[0.07]
                     bg-white/[0.025]
-                    px-5
+                    px-4
                     py-4
                     backdrop-blur-xl
+                    sm:px-5
                   "
                 >
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs text-white/30">
-                      RNOTSKY AI is thinking...
-                    </span>
-                  </div>
+                  <span className="break-words text-xs text-white/30">
+                    RNOTSKY AI is thinking...
+                  </span>
                 </div>
               </div>
             )}
           </div>
         )}
 
-        {/* =========================
-            INPUT
-        ========================== */}
-
+        {/* Input */}
         <div
           className="
             relative
+            w-full
+            min-w-0
+            max-w-full
             border-t
             border-white/[0.07]
             bg-black/[0.18]
-            p-3
             backdrop-blur-2xl
-            sm:p-4
           "
         >
           <AIInput
@@ -350,14 +375,16 @@ export default function AIChat() {
 
           <p
             className="
-              mt-2
+              px-3
+              pb-3
               text-center
               text-[10px]
+              leading-4
               text-white/20
+              sm:px-4
             "
           >
-            RNOTSKY AI can make mistakes. Verify important
-            information.
+            RNOTSKY AI can make mistakes. Verify important information.
           </p>
         </div>
       </div>

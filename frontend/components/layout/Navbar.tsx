@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import AuthModal from "@/components/auth/AuthModal";
 
@@ -32,52 +32,156 @@ export default function Navbar() {
     setAuthOpen(false);
   };
 
+  /* Close mobile menu after route changes */
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  /* Prevent page scrolling while mobile menu is open */
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileOpen]);
+
   return (
     <>
-      <nav className="fixed left-0 top-3 z-[100] w-full px-3 sm:top-4 sm:px-4 lg:top-5">
-        {/* OUTER FLOATING WRAPPER */}
-        <motion.div
-          initial={{ opacity: 0, y: -18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.7,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mx-auto w-full max-w-[1220px]"
+      {/* =========================================================
+          NAVBAR
+      ========================================================= */}
+      <nav
+        aria-label="Main navigation"
+        className="
+          fixed
+          left-0
+          top-3
+          z-[100]
+          w-full
+          px-3
+
+          sm:top-4
+          sm:px-4
+
+          lg:top-5
+        "
+      >
+        {/* No SSR/client entrance animation.
+            Prevents hydration mismatch and keeps navbar stable
+            while navigating between pages. */}
+        <div
+          className="
+            mx-auto
+            w-full
+            max-w-[1220px]
+          "
         >
+          {/* =====================================================
+              OUTER NAVBAR WRAPPER
+          ===================================================== */}
           <div className="relative">
-            {/* PURPLE AMBIENT GLOW */}
+            {/* ===================================================
+                OUTER PURPLE GLOW
+            =================================================== */}
             <div
               aria-hidden="true"
               className="
                 pointer-events-none
                 absolute
-                -inset-1
-                rounded-[22px]
-                bg-purple-600/[0.08]
-                blur-xl
+                -right-20
+                top-1/2
+                h-[190px]
+                w-[420px]
+                -translate-y-1/2
+                rounded-full
+                bg-purple-600/[0.12]
+                blur-[90px]
               "
             />
 
-            {/* NAVBAR */}
+            {/* ===================================================
+                SECONDARY OUTER GLOW
+            =================================================== */}
+            <div
+              aria-hidden="true"
+              className="
+                pointer-events-none
+                absolute
+                right-[30px]
+                top-1/2
+                h-[120px]
+                w-[280px]
+                -translate-y-1/2
+                rounded-full
+                bg-violet-500/[0.08]
+                blur-[70px]
+              "
+            />
+
+            {/* ===================================================
+                MAIN NAVBAR
+            =================================================== */}
             <div
               className="
                 relative
                 isolate
-                overflow-visible
-                rounded-[18px]
+                overflow-hidden
+                rounded-[20px]
                 border
-                border-white/[0.09]
-                bg-black/[0.58]
-                shadow-[0_12px_50px_rgba(0,0,0,0.55)]
-                ring-1
-                ring-purple-500/[0.04]
-                backdrop-blur-3xl
+                border-white/[0.11]
+                bg-black/[0.30]
+                shadow-[0_14px_55px_rgba(0,0,0,0.60)]
+                backdrop-blur-2xl
 
                 sm:rounded-[20px]
               "
             >
-              {/* TOP GLASS HIGHLIGHT */}
+              {/* =================================================
+                  INNER PURPLE GLOW — RIGHT SIDE
+              ================================================= */}
+              <div
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+                  absolute
+                  right-[-30px]
+                  top-1/2
+                  h-[130px]
+                  w-[340px]
+                  -translate-y-1/2
+                  rounded-full
+                  bg-purple-500/[0.09]
+                  blur-[65px]
+                "
+              />
+
+              {/* =================================================
+                  INNER LOGIN AREA GLOW
+              ================================================= */}
+              <div
+                aria-hidden="true"
+                className="
+                  pointer-events-none
+                  absolute
+                  right-[55px]
+                  top-1/2
+                  h-[85px]
+                  w-[210px]
+                  -translate-y-1/2
+                  rounded-full
+                  bg-purple-400/[0.08]
+                  blur-[55px]
+                "
+              />
+
+              {/* =================================================
+                  SUBTLE TOP HIGHLIGHT
+              ================================================= */}
               <div
                 aria-hidden="true"
                 className="
@@ -86,43 +190,24 @@ export default function Navbar() {
                   inset-x-0
                   top-0
                   h-px
-                  rounded-full
-                  bg-gradient-to-r
-                  from-transparent
-                  via-white/[0.16]
-                  to-transparent
+                  bg-white/[0.07]
                 "
               />
 
-              {/* SOFT GLASS LAYER */}
-              <div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute
-                  inset-0
-                  rounded-[18px]
-                  bg-gradient-to-b
-                  from-white/[0.045]
-                  via-transparent
-                  to-transparent
-
-                  sm:rounded-[20px]
-                "
-              />
-
-              {/* MAIN NAV CONTENT */}
+              {/* =================================================
+                  MAIN CONTENT
+              ================================================= */}
               <div
                 className="
                   relative
-                  z-20
+                  z-10
                   flex
-                  min-h-[54px]
+                  min-h-[56px]
                   items-center
                   justify-between
                   px-3
 
-                  sm:min-h-[58px]
+                  sm:min-h-[60px]
                   sm:px-4
 
                   md:px-5
@@ -131,9 +216,12 @@ export default function Navbar() {
                   lg:px-5
                 "
               >
-                {/* LOGO */}
+                {/* =================================================
+                    LOGO
+                ================================================= */}
                 <Link
                   href="/"
+                  aria-label="RNOTSKY home"
                   onClick={() => setMobileOpen(false)}
                   className="
                     group
@@ -144,6 +232,10 @@ export default function Navbar() {
                     items-center
                     rounded-lg
                     outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-purple-500/60
+                    focus-visible:ring-offset-2
+                    focus-visible:ring-offset-black
                   "
                 >
                   <Image
@@ -155,28 +247,28 @@ export default function Navbar() {
                     className="
                       h-auto
                       w-[88px]
+                      object-contain
                       transition-transform
                       duration-300
-                      group-hover:scale-[1.03]
+                      group-hover:scale-[1.025]
 
-                      xs:w-[96px]
-                      sm:w-[108px]
-                      md:w-[114px]
-                      lg:w-[120px]
-                      xl:w-[126px]
+                      sm:w-[104px]
+                      md:w-[112px]
+                      lg:w-[118px]
+                      xl:w-[124px]
                     "
                   />
                 </Link>
 
-                {/* DESKTOP NAVIGATION */}
+                {/* =================================================
+                    DESKTOP NAVIGATION
+                ================================================= */}
                 <div
                   className="
-                    relative
-                    z-30
                     hidden
                     items-center
+                    gap-1
                     lg:flex
-                    lg:gap-1
                     xl:gap-2
                   "
                 >
@@ -196,73 +288,81 @@ export default function Navbar() {
                           flex
                           h-10
                           items-center
-                          rounded-xl
-                          px-3
+                          px-3.5
                           text-[13px]
                           font-medium
                           outline-none
-                          transition-all
+                          transition-colors
                           duration-300
 
-                          xl:px-3.5
+                          xl:px-4
+
+                          focus-visible:ring-2
+                          focus-visible:ring-purple-500/50
                         "
                       >
-                        {/* HOVER / ACTIVE BACKGROUND */}
+                        {/* Hover atmosphere */}
                         <span
                           aria-hidden="true"
-                          className={`
+                          className="
+                            pointer-events-none
                             absolute
-                            inset-0
-                            rounded-xl
+                            left-1/2
+                            top-1/2
+                            h-8
+                            w-12
+                            -translate-x-1/2
+                            -translate-y-1/2
+                            rounded-full
+                            bg-purple-500/[0.055]
+                            blur-xl
+                            opacity-0
+                            transition-opacity
+                            duration-300
+                            group-hover:opacity-100
+                          "
+                        />
+
+                        {/* Navigation text */}
+                        <span
+                          className={`
+                            relative
+                            z-10
+                            whitespace-nowrap
                             transition-all
                             duration-300
 
                             ${
                               active
-                                ? "bg-white/[0.055]"
-                                : "bg-transparent group-hover:bg-white/[0.04]"
-                            }
-                          `}
-                        />
-
-                        {/* TEXT */}
-                        <span
-                          className={`
-                            relative
-                            z-10
-                            transition-colors
-                            duration-300
-
-                            ${
-                              active
-                                ? "text-white"
-                                : "text-gray-400 group-hover:text-white"
+                                ? "text-white drop-shadow-[0_0_12px_rgba(168,85,247,0.18)]"
+                                : "text-white/45 group-hover:text-white/85"
                             }
                           `}
                         >
                           {link.name}
                         </span>
 
-                        {/* ACTIVE PURPLE INDICATOR */}
+                        {/* Active indicator */}
                         {active && (
                           <motion.span
-                            layoutId="navbar-active"
-                            className="
-                              absolute
-                              bottom-[3px]
-                              left-1/2
-                              h-[2px]
-                              w-5
-                              -translate-x-1/2
-                              rounded-full
-                              bg-purple-500
-                              shadow-[0_0_12px_rgba(168,85,247,0.9)]
-                            "
+                            layoutId="navbar-active-line"
                             transition={{
                               type: "spring",
-                              stiffness: 450,
-                              damping: 30,
+                              stiffness: 500,
+                              damping: 34,
+                              mass: 0.7,
                             }}
+                            className="
+                              absolute
+                              bottom-0
+                              left-1/2
+                              h-[2px]
+                              w-[36px]
+                              -translate-x-1/2
+                              rounded-full
+                              bg-purple-400
+                              shadow-[0_0_10px_rgba(168,85,247,0.85)]
+                            "
                           />
                         )}
                       </Link>
@@ -270,9 +370,21 @@ export default function Navbar() {
                   })}
                 </div>
 
-                {/* RIGHT SIDE */}
-                <div className="relative z-30 flex items-center gap-2">
-                  {/* AI BUTTON */}
+                {/* =================================================
+                    RIGHT ACTIONS
+                ================================================= */}
+                <div
+                  className="
+                    relative
+                    z-30
+                    flex
+                    items-center
+                    gap-2
+                  "
+                >
+                  {/* =================================================
+                      AI BUTTON
+                  ================================================= */}
                   <Link
                     href="/ai"
                     className="
@@ -283,22 +395,25 @@ export default function Navbar() {
                       gap-2
                       rounded-full
                       border
-                      border-purple-500/[0.28]
-                      bg-purple-500/[0.07]
-                      px-3
+                      border-purple-500/[0.40]
+                      bg-purple-500/[0.055]
+                      px-3.5
                       text-[11px]
                       font-semibold
                       text-purple-300
+                      outline-none
                       transition-all
                       duration-300
 
-                      hover:border-purple-400/60
-                      hover:bg-purple-500/[0.13]
+                      hover:border-purple-400/[0.70]
+                      hover:bg-purple-500/[0.10]
                       hover:text-purple-200
-                      hover:shadow-[0_0_25px_rgba(168,85,247,0.2)]
+                      hover:shadow-[0_0_28px_rgba(168,85,247,0.20)]
+
+                      focus-visible:ring-2
+                      focus-visible:ring-purple-500/60
 
                       lg:flex
-                      xl:px-3.5
                     "
                   >
                     <Image
@@ -319,7 +434,9 @@ export default function Navbar() {
                     <span>AI</span>
                   </Link>
 
-                  {/* DESKTOP LOGIN */}
+                  {/* =================================================
+                      LOGIN BUTTON
+                  ================================================= */}
                   <button
                     type="button"
                     onClick={openAuth}
@@ -328,30 +445,49 @@ export default function Navbar() {
                       hidden
                       h-9
                       items-center
+                      gap-2
                       rounded-full
                       bg-gradient-to-r
                       from-purple-700
                       via-purple-600
-                      to-purple-500
-                      px-3.5
+                      to-fuchsia-500
+                      px-4
                       text-[11px]
                       font-semibold
                       text-white
-                      shadow-[0_4px_18px_rgba(124,58,237,0.18)]
+                      shadow-[0_5px_25px_rgba(124,58,237,0.30),0_0_45px_rgba(168,85,247,0.10)]
+                      outline-none
                       transition-all
                       duration-300
 
-                      hover:-translate-y-0.5
-                      hover:shadow-[0_8px_28px_rgba(168,85,247,0.38)]
+                      hover:-translate-y-[1px]
+                      hover:shadow-[0_8px_32px_rgba(168,85,247,0.42),0_0_55px_rgba(168,85,247,0.16)]
+
+                      focus-visible:ring-2
+                      focus-visible:ring-purple-400/70
+                      focus-visible:ring-offset-2
+                      focus-visible:ring-offset-black
 
                       lg:flex
-                      xl:px-4
                     "
                   >
                     <span>Login</span>
+
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="
+                        h-3.5
+                        w-3.5
+                        transition-transform
+                        duration-300
+                        group-hover:translate-x-0.5
+                      "
+                    />
                   </button>
 
-                  {/* MOBILE MENU BUTTON */}
+                  {/* =================================================
+                      MOBILE MENU BUTTON
+                  ================================================= */}
                   <button
                     type="button"
                     aria-label={
@@ -371,15 +507,19 @@ export default function Navbar() {
                       justify-center
                       rounded-xl
                       border
-                      border-white/[0.09]
-                      bg-white/[0.045]
-                      text-gray-300
+                      border-white/[0.10]
+                      bg-white/[0.035]
+                      text-white/65
+                      outline-none
                       transition-all
                       duration-300
 
-                      hover:border-purple-500/30
-                      hover:bg-purple-500/[0.08]
+                      hover:border-purple-500/[0.30]
+                      hover:bg-purple-500/[0.07]
                       hover:text-white
+
+                      focus-visible:ring-2
+                      focus-visible:ring-purple-500/60
 
                       lg:hidden
                     "
@@ -393,8 +533,8 @@ export default function Navbar() {
                           key="close"
                           initial={{
                             opacity: 0,
-                            rotate: -90,
-                            scale: 0.7,
+                            rotate: -60,
+                            scale: 0.8,
                           }}
                           animate={{
                             opacity: 1,
@@ -403,11 +543,11 @@ export default function Navbar() {
                           }}
                           exit={{
                             opacity: 0,
-                            rotate: 90,
-                            scale: 0.7,
+                            rotate: 60,
+                            scale: 0.8,
                           }}
                           transition={{
-                            duration: 0.2,
+                            duration: 0.18,
                           }}
                         >
                           <X
@@ -420,8 +560,8 @@ export default function Navbar() {
                           key="menu"
                           initial={{
                             opacity: 0,
-                            rotate: 90,
-                            scale: 0.7,
+                            rotate: 60,
+                            scale: 0.8,
                           }}
                           animate={{
                             opacity: 1,
@@ -430,11 +570,11 @@ export default function Navbar() {
                           }}
                           exit={{
                             opacity: 0,
-                            rotate: -90,
-                            scale: 0.7,
+                            rotate: -60,
+                            scale: 0.8,
                           }}
                           transition={{
-                            duration: 0.2,
+                            duration: 0.18,
                           }}
                         >
                           <Menu
@@ -448,63 +588,68 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* MOBILE MENU */}
-              <AnimatePresence>
+              {/* =====================================================
+                  MOBILE MENU
+              ===================================================== */}
+              <AnimatePresence initial={false}>
                 {mobileOpen && (
                   <motion.div
                     initial={{
                       opacity: 0,
                       height: 0,
-                      y: -8,
                     }}
                     animate={{
                       opacity: 1,
                       height: "auto",
-                      y: 0,
                     }}
                     exit={{
                       opacity: 0,
                       height: 0,
-                      y: -8,
                     }}
                     transition={{
-                      duration: 0.3,
+                      duration: 0.28,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     className="
                       relative
-                      z-20
                       overflow-hidden
                       border-t
-                      border-white/[0.06]
+                      border-white/[0.07]
                       lg:hidden
                     "
                   >
-                    <div className="px-3 pb-3 pt-2 sm:px-4 sm:pb-4">
-                      {/* MOBILE NAV LINKS */}
+                    <div
+                      className="
+                        px-3
+                        pb-3
+                        pt-2
+
+                        sm:px-4
+                        sm:pb-4
+                      "
+                    >
+                      {/* MOBILE LINKS */}
                       <div className="space-y-1">
                         {links.map((link, index) => {
                           const active =
                             link.href === "/"
                               ? pathname === "/"
-                              : pathname.startsWith(
-                                  link.href
-                                );
+                              : pathname.startsWith(link.href);
 
                           return (
                             <motion.div
                               key={link.href}
                               initial={{
                                 opacity: 0,
-                                x: -12,
+                                x: -8,
                               }}
                               animate={{
                                 opacity: 1,
                                 x: 0,
                               }}
                               transition={{
-                                delay: index * 0.045,
-                                duration: 0.3,
+                                delay: index * 0.035,
+                                duration: 0.25,
                               }}
                             >
                               <Link
@@ -512,8 +657,9 @@ export default function Navbar() {
                                 onClick={() =>
                                   setMobileOpen(false)
                                 }
-                                className={`
+                                className="
                                   group
+                                  relative
                                   flex
                                   min-h-[44px]
                                   items-center
@@ -522,20 +668,38 @@ export default function Navbar() {
                                   px-3
                                   text-sm
                                   font-medium
+                                  outline-none
                                   transition-all
                                   duration-200
 
-                                  ${
-                                    active
-                                      ? "bg-purple-500/[0.09] text-white"
-                                      : "text-gray-400 hover:bg-white/[0.04] hover:text-white"
-                                  }
-                                `}
+                                  focus-visible:ring-2
+                                  focus-visible:ring-purple-500/50
+                                "
                               >
-                                <span>{link.name}</span>
+                                <span
+                                  className={`
+                                    transition-colors
+                                    duration-200
+
+                                    ${
+                                      active
+                                        ? "text-white"
+                                        : "text-white/45 group-hover:text-white/90"
+                                    }
+                                  `}
+                                >
+                                  {link.name}
+                                </span>
 
                                 {active && (
-                                  <span
+                                  <motion.span
+                                    layoutId="mobile-active-dot"
+                                    transition={{
+                                      type: "spring",
+                                      stiffness: 500,
+                                      damping: 32,
+                                    }}
+                                    aria-hidden="true"
                                     className="
                                       h-1.5
                                       w-1.5
@@ -567,14 +731,21 @@ export default function Navbar() {
                             gap-2
                             rounded-xl
                             border
-                            border-purple-500/[0.25]
-                            bg-purple-500/[0.06]
+                            border-purple-500/[0.30]
+                            bg-purple-500/[0.055]
                             text-xs
                             font-semibold
                             text-purple-300
+                            outline-none
                             transition-all
                             duration-300
-                            hover:bg-purple-500/[0.12]
+
+                            hover:border-purple-400/[0.55]
+                            hover:bg-purple-500/[0.10]
+                            hover:text-purple-200
+
+                            focus-visible:ring-2
+                            focus-visible:ring-purple-500/60
                           "
                         >
                           <Image
@@ -592,60 +763,61 @@ export default function Navbar() {
                           RNOTSKY AI
                         </Link>
 
-                        {/* MOBILE LOGIN */}
+                        {/* LOGIN */}
                         <button
                           type="button"
                           onClick={openAuth}
                           className="
+                            group
                             flex
                             h-10
                             items-center
                             justify-center
+                            gap-2
                             rounded-xl
                             bg-gradient-to-r
                             from-purple-700
-                            to-purple-500
+                            to-fuchsia-500
                             text-xs
                             font-semibold
                             text-white
-                            shadow-[0_5px_20px_rgba(124,58,237,0.2)]
+                            shadow-[0_5px_20px_rgba(124,58,237,0.20)]
+                            outline-none
                             transition-all
                             duration-300
-                            hover:shadow-[0_8px_25px_rgba(168,85,247,0.3)]
+
+                            hover:shadow-[0_8px_25px_rgba(168,85,247,0.32)]
+
+                            focus-visible:ring-2
+                            focus-visible:ring-purple-400/70
                           "
                         >
                           Login
+
+                          <ArrowRight
+                            aria-hidden="true"
+                            className="
+                              h-3.5
+                              w-3.5
+                              transition-transform
+                              duration-300
+                              group-hover:translate-x-0.5
+                            "
+                          />
                         </button>
                       </div>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-
-              {/* BOTTOM PURPLE GLOW */}
-              <div
-                aria-hidden="true"
-                className="
-                  pointer-events-none
-                  absolute
-                  bottom-0
-                  left-1/2
-                  h-px
-                  w-[55%]
-                  -translate-x-1/2
-                  bg-gradient-to-r
-                  from-transparent
-                  via-purple-500/[0.18]
-                  to-transparent
-                  blur-[1px]
-                "
-              />
             </div>
           </div>
-        </motion.div>
+        </div>
       </nav>
 
-      {/* AUTH MODAL */}
+      {/* =========================================================
+          AUTH MODAL
+      ========================================================= */}
       <AuthModal
         open={authOpen}
         onClose={closeAuth}

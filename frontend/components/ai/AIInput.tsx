@@ -30,9 +30,7 @@ export default function AIInput({
     setValue("");
   }
 
-  function handleSubmit(
-    event: FormEvent<HTMLFormElement>
-  ) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     submitMessage();
   }
@@ -40,10 +38,7 @@ export default function AIInput({
   function handleKeyDown(
     event: KeyboardEvent<HTMLInputElement>
   ) {
-    if (
-      event.key === "Enter" &&
-      !event.shiftKey
-    ) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       submitMessage();
     }
@@ -53,35 +48,41 @@ export default function AIInput({
     <form
       onSubmit={handleSubmit}
       className="
-        border-t
-        border-white/[0.06]
-        p-4
-        sm:p-5
+        w-full
+        min-w-0
+        max-w-full
+        p-3
+        sm:p-4
+        md:p-5
       "
     >
       <div
         className="
           flex
-          min-h-[60px]
+          w-full
+          min-w-0
+          max-w-full
+          min-h-[56px]
           items-center
-          gap-3
+          gap-2
           rounded-2xl
           border
           border-white/[0.08]
           bg-black/40
-          px-4
+          px-3
           transition-all
           duration-300
           focus-within:border-purple-400/[0.25]
           focus-within:bg-white/[0.025]
           focus-within:shadow-[0_0_45px_rgba(168,85,247,0.06)]
+          sm:min-h-[60px]
+          sm:gap-3
+          sm:px-4
         "
       >
         <input
           value={value}
-          onChange={(event) =>
-            setValue(event.target.value)
-          }
+          onChange={(event) => setValue(event.target.value)}
           onKeyDown={handleKeyDown}
           disabled={disabled}
           type="text"
@@ -89,6 +90,8 @@ export default function AIInput({
           placeholder="Ask RNOTSKY AI..."
           aria-label="Message RNOTSKY AI"
           className="
+            block
+            w-0
             min-w-0
             flex-1
             bg-transparent
@@ -138,7 +141,7 @@ export default function AIInput({
               "
             />
           ) : (
-            <ArrowUp className="h-4 w-4" />
+            <ArrowUp className="h-4 w-4 shrink-0" />
           )}
         </button>
       </div>

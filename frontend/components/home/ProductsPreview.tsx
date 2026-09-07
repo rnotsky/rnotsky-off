@@ -24,143 +24,15 @@ const products = [
   },
 ];
 
-/* =========================================================
-   ANIMATION VARIANTS
-========================================================= */
-
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-};
-
-const popUp = {
-  hidden: {
-    opacity: 0,
-    y: 55,
-    scale: 0.94,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  },
-};
-
-const popSmall = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-    scale: 0.8,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  },
-};
-
-/* =========================================================
-   PURPLE GLOW DOT
-========================================================= */
-
-function PurpleGlowDot() {
-  return (
-    <div className="relative flex h-10 w-10 items-center justify-center">
-      {/* Outer Glow */}
-      <div
-        aria-hidden="true"
-        className="
-          absolute
-          h-10
-          w-10
-          rounded-full
-          bg-purple-600/20
-          blur-xl
-          transition-all
-          duration-700
-          group-hover:h-16
-          group-hover:w-16
-          group-hover:bg-purple-500/35
-        "
-      />
-
-      {/* Pulsing Ring */}
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.4, 0.08, 0.4],
-        }}
-        transition={{
-          duration: 2.6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="
-          absolute
-          h-7
-          w-7
-          rounded-full
-          border
-          border-purple-400/30
-        "
-      />
-
-      {/* Inner Glow */}
-      <div
-        aria-hidden="true"
-        className="
-          absolute
-          h-5
-          w-5
-          rounded-full
-          bg-purple-500/20
-          blur-md
-          transition-all
-          duration-500
-          group-hover:bg-purple-400/35
-        "
-      />
-
-      {/* Core */}
-      <div
-        className="
-          relative
-          h-2.5
-          w-2.5
-          rounded-full
-          bg-purple-300
-          shadow-[0_0_14px_rgba(168,85,247,0.95)]
-          transition-all
-          duration-500
-          group-hover:h-3
-          group-hover:w-3
-          group-hover:bg-purple-200
-          group-hover:shadow-[0_0_28px_rgba(168,85,247,1)]
-        "
-      />
-    </div>
-  );
-}
-
-/* =========================================================
-   PRODUCTS PREVIEW
-========================================================= */
-
 export default function ProductsPreview() {
   return (
     <section
       className="
         relative
-        overflow-hidden
+        isolate
+        w-full
+        max-w-[100vw]
+        overflow-x-clip
         bg-black
         px-5
         py-24
@@ -175,31 +47,43 @@ export default function ProductsPreview() {
         xl:px-16
       "
     >
-      {/* =====================================================
-          MAIN CONTENT
-      ====================================================== */}
+      {/* =========================================================
+          VERY SUBTLE PURPLE ATMOSPHERE
+      ========================================================== */}
 
-      <div className="relative z-10 mx-auto max-w-[1400px]">
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-[-260px]
+          z-0
+          h-[520px]
+          w-[900px]
+          max-w-[100vw]
+          -translate-x-1/2
+          rounded-full
+          bg-purple-700/[0.035]
+          blur-[170px]
+        "
+      />
 
-        {/* =================================================
+      <div className="relative z-10 mx-auto w-full max-w-[1400px]">
+        {/* =========================================================
             HEADER
-        ================================================= */}
+        ========================================================== */}
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{
             once: true,
             amount: 0.25,
           }}
-          variants={{
-            hidden: {},
-
-            visible: {
-              transition: {
-                staggerChildren: 0.12,
-              },
-            },
+          transition={{
+            duration: 0.7,
+            ease: "easeOut",
           }}
           className="
             flex
@@ -211,66 +95,39 @@ export default function ProductsPreview() {
             lg:justify-between
           "
         >
-          {/* =================================================
-              HEADER TEXT
-          ================================================= */}
+          {/* HEADER TEXT */}
 
           <div className="max-w-3xl">
-
             {/* LABEL */}
 
-            <motion.div
-              variants={fadeUp}
-              transition={{
-                duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+            <p
               className="
-                flex
-                items-center
-                gap-3
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[0.3em]
+                text-purple-400
+
+                sm:text-sm
               "
             >
-              <span
-                className="
-                  h-px
-                  w-8
-                  bg-purple-500/70
-                "
-              />
-
-              <p
-                className="
-                  text-xs
-                  font-semibold
-                  uppercase
-                  tracking-[0.3em]
-                  text-purple-400
-
-                  sm:text-sm
-                "
-              >
-                Our Products
-              </p>
-            </motion.div>
+              Our Products
+            </p>
 
             {/* HEADING */}
 
-            <motion.h2
-              variants={fadeUp}
-              transition={{
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+            <h2
               className="
                 mt-5
                 text-3xl
                 font-extrabold
-                leading-tight
-                tracking-[-0.03em]
+                leading-[1.08]
+                tracking-[-0.04em]
 
                 sm:text-4xl
+
                 md:text-5xl
+
                 lg:text-6xl
               "
             >
@@ -289,16 +146,11 @@ export default function ProductsPreview() {
               >
                 move ideas forward.
               </span>
-            </motion.h2>
+            </h2>
 
             {/* DESCRIPTION */}
 
-            <motion.p
-              variants={fadeUp}
-              transition={{
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+            <p
               className="
                 mt-6
                 max-w-2xl
@@ -310,66 +162,36 @@ export default function ProductsPreview() {
                 sm:leading-8
               "
             >
-              Explore the technology we're building across
-              artificial intelligence, computer vision and
-              robotics.
-            </motion.p>
+              Explore the technology we're building across artificial
+              intelligence, computer vision and robotics.
+            </p>
           </div>
 
-          {/* =================================================
-              VIEW ALL PRODUCTS
-          ================================================= */}
+          {/* VIEW ALL */}
 
-          <motion.div
-            variants={fadeUp}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+          <Link
+            href="/products"
+            className="
+              inline-flex
+              w-fit
+              items-center
+              text-sm
+              font-semibold
+              text-gray-400
+              transition-colors
+              duration-300
+              hover:text-purple-300
+            "
           >
-            <Link
-              href="/products"
-              className="
-                inline-flex
-                w-fit
-                items-center
-
-                text-sm
-                font-semibold
-                text-gray-400
-
-                transition-colors
-                duration-300
-
-                hover:text-white
-              "
-            >
-              View all products
-            </Link>
-          </motion.div>
+            View all products
+          </Link>
         </motion.div>
 
-        {/* =====================================================
-            PRODUCTS
-        ====================================================== */}
+        {/* =========================================================
+            PRODUCT GRID
+        ========================================================== */}
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.12,
-          }}
-          variants={{
-            hidden: {},
-
-            visible: {
-              transition: {
-                staggerChildren: 0.16,
-                delayChildren: 0.15,
-              },
-            },
-          }}
+        <div
           className="
             mt-14
             grid
@@ -384,67 +206,93 @@ export default function ProductsPreview() {
           {products.map((product, index) => (
             <motion.div
               key={product.label}
-              variants={popUp}
-              transition={{
-                duration: 0.9,
-                ease: [0.22, 1, 0.36, 1],
+              initial={{
+                opacity: 0,
+                y: 35,
               }}
-              className="h-full"
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.12,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.1,
+                ease: "easeOut",
+              }}
+              className="min-w-0"
             >
+              {/* =================================================
+                  PRODUCT CARD
+              ================================================== */}
+
               <Link
                 href="/products"
                 className="
                   group
                   relative
                   flex
-                  h-full
-                  min-h-[360px]
+                  min-h-[330px]
+                  w-full
                   flex-col
                   overflow-hidden
-                  rounded-[2rem]
-
+                  rounded-[22px]
                   border
-                  border-purple-400/[0.13]
-
-                  bg-gradient-to-br
-                  from-purple-500/[0.075]
-                  via-white/[0.025]
-                  to-transparent
-
-                  backdrop-blur-2xl
-
+                  border-white/[0.12]
+                  bg-black
+                  px-7
+                  py-7
                   transition-all
-                  duration-700
+                  duration-500
+                  ease-out
 
-                  hover:-translate-y-2
-                  hover:border-purple-400/[0.32]
-                  hover:shadow-[0_25px_70px_rgba(0,0,0,0.35)]
+                  hover:-translate-y-[2px]
+                  hover:border-purple-500/[0.70]
+                  hover:bg-black
+                  hover:shadow-[0_0_45px_rgba(168,85,247,0.13),0_25px_70px_rgba(0,0,0,0.65)]
 
-                  sm:min-h-[380px]
+                  sm:min-h-[350px]
+                  sm:px-7
+                  sm:py-7
+
+                  lg:px-8
+                  lg:py-8
                 "
               >
                 {/* =================================================
-                    TOP GLASS HIGHLIGHT
+                    CARD INNER PURPLE GLOW
                 ================================================== */}
 
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    scaleX: 0,
-                  }}
-                  whileInView={{
-                    opacity: 0.6,
-                    scaleX: 1,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                  }}
-                  transition={{
-                    duration: 1,
-                    delay: 0.35 + index * 0.15,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                <div
+                  aria-hidden="true"
+                  className="
+                    pointer-events-none
+                    absolute
+                    left-1/2
+                    top-1/2
+                    h-[300px]
+                    w-[300px]
+                    -translate-x-1/2
+                    -translate-y-1/2
+                    rounded-full
+                    bg-purple-600/[0.05]
+                    blur-[100px]
+                    opacity-0
+                    transition-all
+                    duration-700
+                    group-hover:scale-110
+                    group-hover:opacity-100
+                  "
+                />
+
+                {/* =================================================
+                    TOP PURPLE HIGHLIGHT
+                ================================================== */}
+
+                <div
                   aria-hidden="true"
                   className="
                     pointer-events-none
@@ -453,38 +301,14 @@ export default function ProductsPreview() {
                     right-[8%]
                     top-0
                     h-px
-                    origin-center
                     bg-gradient-to-r
                     from-transparent
-                    via-purple-300/60
+                    via-purple-400
                     to-transparent
-                  "
-                />
-
-                {/* =================================================
-                    CARD PURPLE GLOW
-                ================================================== */}
-
-                <div
-                  aria-hidden="true"
-                  className="
-                    pointer-events-none
-                    absolute
-                    -left-20
-                    -top-20
-                    h-56
-                    w-56
-                    rounded-full
-
-                    bg-purple-600/[0.07]
-
-                    blur-[90px]
-
-                    transition-all
-                    duration-700
-
-                    group-hover:scale-125
-                    group-hover:bg-purple-500/[0.16]
+                    opacity-0
+                    transition-opacity
+                    duration-500
+                    group-hover:opacity-80
                   "
                 />
 
@@ -492,144 +316,131 @@ export default function ProductsPreview() {
                     CONTENT
                 ================================================== */}
 
-                <div
-                  className="
-                    relative
-                    z-10
-                    flex
-                    h-full
-                    flex-col
-                    p-7
+                <div className="relative z-10 flex h-full flex-1 flex-col">
+                  {/* PRODUCT LABEL */}
 
-                    sm:p-9
-
-                    lg:p-10
-                  "
-                >
-                  {/* =================================================
-                      PURPLE DOT
-                  ================================================== */}
-
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.15,
-                    }}
-                    variants={popSmall}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.25 + index * 0.16,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="
-                      relative
-                      flex
-                      h-10
-                      w-10
-                      items-center
-                      justify-center
-                    "
-                  >
-                    <PurpleGlowDot />
-                  </motion.div>
-
-                  {/* =================================================
-                      PRODUCT CONTENT
-                  ================================================== */}
-
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.15,
-                    }}
-                    variants={{
-                      hidden: {},
-
-                      visible: {
-                        transition: {
-                          staggerChildren: 0.1,
-                          delayChildren: 0.42 + index * 0.16,
-                        },
-                      },
-                    }}
-                    className="relative mt-7"
-                  >
-                    {/* LABEL */}
-
-                    <motion.p
-                      variants={fadeUp}
-                      transition={{
-                        duration: 0.6,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
+                  <div className="flex items-center gap-3">
+                    <span
                       className="
-                        text-xs
+                        h-1.5
+                        w-1.5
+                        shrink-0
+                        rounded-full
+                        bg-purple-400
+                        shadow-[0_0_12px_rgba(168,85,247,0.9)]
+                        transition-all
+                        duration-300
+                        group-hover:scale-125
+                        group-hover:bg-purple-300
+                        group-hover:shadow-[0_0_18px_rgba(168,85,247,1)]
+                      "
+                    />
+
+                    <p
+                      className="
+                        text-[11px]
                         font-semibold
                         uppercase
-                        tracking-[0.2em]
+                        tracking-[0.18em]
                         text-purple-400
+                        transition-colors
+                        duration-300
+                        group-hover:text-purple-300
                       "
                     >
                       {product.label}
-                    </motion.p>
+                    </p>
+                  </div>
 
-                    {/* TITLE */}
+                  {/* =================================================
+                      TITLE + DESCRIPTION
+                  ================================================== */}
 
-                    <motion.h3
-                      variants={fadeUp}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
+                  <div className="mt-7">
+                    <h3
                       className="
-                        mt-3
-                        text-2xl
+                        max-w-[360px]
+                        text-[26px]
                         font-bold
-                        leading-tight
-                        tracking-[-0.03em]
+                        leading-[1.2]
+                        tracking-[-0.035em]
                         text-white
+                        transition-colors
+                        duration-300
+                        group-hover:text-purple-300
 
-                        sm:text-[1.65rem]
-
-                        lg:text-[1.8rem]
+                        sm:text-[28px]
                       "
                     >
-                      {product.title}
-                    </motion.h3>
+                      {index === 1 ? (
+                        <>
+                          Making machines
+                          <br />
+                          see.
+                        </>
+                      ) : (
+                        product.title
+                      )}
+                    </h3>
 
-                    {/* DESCRIPTION */}
-
-                    <motion.p
-                      variants={fadeUp}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
+                    <p
                       className="
-                        mt-4
-                        max-w-xl
-                        text-sm
-                        leading-7
-                        text-gray-500
-
+                        mt-5
+                        max-w-[400px]
+                        text-[14px]
+                        leading-[1.75]
+                        text-[#8296ad]
                         transition-colors
-                        duration-500
-
-                        group-hover:text-gray-300
+                        duration-300
+                        group-hover:text-[#a9b8c9]
                       "
                     >
                       {product.description}
-                    </motion.p>
-                  </motion.div>
+                    </p>
+                  </div>
+
+                  {/* =================================================
+                      BOTTOM ACTION
+                  ================================================== */}
+
+                  <div className="mt-auto pt-8">
+                    <span
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        text-[15px]
+                        font-semibold
+                        tracking-[-0.01em]
+                        text-purple-400
+                        transition-all
+                        duration-300
+                        group-hover:text-purple-300
+                        group-hover:[text-shadow:0_0_18px_rgba(168,85,247,0.35)]
+                      "
+                    >
+                      <span>Explore product</span>
+
+                      <span
+                        aria-hidden="true"
+                        className="
+                          text-[20px]
+                          font-normal
+                          leading-none
+                          transition-transform
+                          duration-300
+                          group-hover:translate-x-1
+                        "
+                      >
+                        →
+                      </span>
+                    </span>
+                  </div>
                 </div>
               </Link>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

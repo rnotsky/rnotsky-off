@@ -3,10 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-/* =========================================================
-   SERVICES
-========================================================= */
-
 const services = [
   {
     title: "AI Engineering",
@@ -40,154 +36,15 @@ const services = [
   },
 ];
 
-/* =========================================================
-   ANIMATION VARIANTS
-========================================================= */
-
-const fadeUp = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-};
-
-const popUp = {
-  hidden: {
-    opacity: 0,
-    y: 55,
-    scale: 0.94,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  },
-};
-
-const popSmall = {
-  hidden: {
-    opacity: 0,
-    y: 20,
-    scale: 0.8,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  },
-};
-
-/* =========================================================
-   PURPLE GLOW DOT
-========================================================= */
-
-function PurpleGlowDot() {
-  return (
-    <div className="relative flex h-10 w-10 items-center justify-center">
-      {/* Outer glow */}
-
-      <div
-        aria-hidden="true"
-        className="
-          absolute
-          h-10
-          w-10
-          rounded-full
-          bg-purple-600/20
-          blur-xl
-
-          transition-all
-          duration-700
-
-          group-hover:h-16
-          group-hover:w-16
-          group-hover:bg-purple-500/35
-        "
-      />
-
-      {/* Pulsing ring */}
-
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.4, 0.08, 0.4],
-        }}
-        transition={{
-          duration: 2.6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="
-          absolute
-          h-7
-          w-7
-          rounded-full
-          border
-          border-purple-400/30
-        "
-      />
-
-      {/* Inner glow */}
-
-      <div
-        aria-hidden="true"
-        className="
-          absolute
-          h-5
-          w-5
-          rounded-full
-          bg-purple-500/20
-          blur-md
-
-          transition-all
-          duration-500
-
-          group-hover:bg-purple-400/35
-        "
-      />
-
-      {/* Main dot */}
-
-      <div
-        className="
-          relative
-          h-2.5
-          w-2.5
-          rounded-full
-          bg-purple-300
-
-          shadow-[0_0_14px_rgba(168,85,247,0.95)]
-
-          transition-all
-          duration-500
-
-          group-hover:h-3
-          group-hover:w-3
-          group-hover:bg-purple-200
-          group-hover:shadow-[0_0_28px_rgba(168,85,247,1)]
-        "
-      />
-    </div>
-  );
-}
-
-/* =========================================================
-   COMPONENT
-========================================================= */
-
 export default function ServicesPreview() {
   return (
     <section
       className="
         relative
-        overflow-hidden
+        isolate
+        w-full
+        max-w-[100vw]
+        overflow-x-clip
         bg-black
         px-5
         py-24
@@ -202,147 +59,103 @@ export default function ServicesPreview() {
         xl:px-16
       "
     >
-      {/* =====================================================
-          BACKGROUND ATMOSPHERE
-      ====================================================== */}
+      {/* =========================================================
+          SUBTLE PURPLE ATMOSPHERE
+      ========================================================== */}
 
       <div
         aria-hidden="true"
         className="
           pointer-events-none
           absolute
-          left-[-250px]
-          top-1/2
-          h-[500px]
-          w-[500px]
-          -translate-y-1/2
+          left-1/2
+          top-[-260px]
+          z-0
+          h-[520px]
+          w-[900px]
+          max-w-[100vw]
+          -translate-x-1/2
           rounded-full
-          bg-purple-700/[0.035]
-          blur-[160px]
+          bg-purple-700/[0.025]
+          blur-[170px]
         "
       />
 
-      {/* =====================================================
-          CENTER PURPLE LIGHT
-      ====================================================== */}
-
-      <motion.div
+      <div
         aria-hidden="true"
-        initial={{
-          opacity: 0,
-          scale: 0.5,
-        }}
-        whileInView={{
-          opacity: 1,
-          scale: 1,
-        }}
-        viewport={{
-          once: true,
-          amount: 0.15,
-        }}
-        transition={{
-          duration: 1.5,
-          ease: [0.22, 1, 0.36, 1],
-        }}
         className="
           pointer-events-none
           absolute
-          left-1/2
-          top-1/2
+          bottom-[-200px]
+          right-[-180px]
+          z-0
           h-[450px]
-          w-[750px]
-          -translate-x-1/2
-          -translate-y-1/2
+          w-[450px]
+          max-w-[100vw]
           rounded-full
-          bg-purple-600/[0.018]
-          blur-[160px]
+          bg-purple-700/[0.015]
+          blur-[150px]
         "
       />
 
-      {/* =====================================================
-          MAIN CONTENT
-      ====================================================== */}
+      {/* =========================================================
+          MAIN CONTAINER
+      ========================================================== */}
 
-      <div className="relative z-10 mx-auto max-w-[1400px]">
-
-        {/* ===================================================
+      <div className="relative z-10 mx-auto w-full max-w-[1400px]">
+        {/* =========================================================
             HEADER
-        ==================================================== */}
+        ========================================================== */}
 
         <motion.div
-          initial="hidden"
-          whileInView="visible"
+          initial={{
+            opacity: 0,
+            y: 24,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
           viewport={{
             once: true,
             amount: 0.25,
           }}
-          variants={{
-            hidden: {},
-
-            visible: {
-              transition: {
-                staggerChildren: 0.12,
-              },
-            },
+          transition={{
+            duration: 0.7,
+            ease: "easeOut",
           }}
-          className="
-            max-w-3xl
-          "
+          className="max-w-3xl"
         >
-          {/* Label */}
+          {/* LABEL */}
 
-          <motion.div
-            variants={fadeUp}
-            transition={{
-              duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+          <p
             className="
-              flex
-              items-center
-              gap-3
+              text-xs
+              font-semibold
+              uppercase
+              tracking-[0.3em]
+              text-purple-400
+
+              sm:text-sm
             "
           >
-            <span
-              className="
-                h-px
-                w-8
-                bg-purple-500/70
-              "
-            />
+            Our Services
+          </p>
 
-            <p
-              className="
-                text-xs
-                font-semibold
-                uppercase
-                tracking-[0.3em]
-                text-purple-400
+          {/* HEADING */}
 
-                sm:text-sm
-              "
-            >
-              Our Services
-            </p>
-          </motion.div>
-
-          {/* Heading */}
-
-          <motion.h2
-            variants={fadeUp}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+          <h2
             className="
               mt-5
               text-3xl
               font-extrabold
-              leading-tight
-              tracking-[-0.03em]
+              leading-[1.08]
+              tracking-[-0.04em]
 
               sm:text-4xl
+
               md:text-5xl
+
               lg:text-6xl
             "
           >
@@ -352,25 +165,20 @@ export default function ServicesPreview() {
               className="
                 block
                 bg-gradient-to-r
-                from-white
-                via-purple-200
-                to-purple-500
+                from-purple-300
+                via-violet-500
+                to-fuchsia-500
                 bg-clip-text
                 text-transparent
               "
             >
               ideas into technology.
             </span>
-          </motion.h2>
+          </h2>
 
-          {/* Description */}
+          {/* DESCRIPTION */}
 
-          <motion.p
-            variants={fadeUp}
-            transition={{
-              duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+          <p
             className="
               mt-6
               max-w-2xl
@@ -384,38 +192,22 @@ export default function ServicesPreview() {
           >
             From intelligent software to advanced robotics, we engineer
             technology around real problems and meaningful possibilities.
-          </motion.p>
+          </p>
         </motion.div>
 
-        {/* ===================================================
+        {/* =========================================================
             SERVICES GRID
-        ==================================================== */}
+        ========================================================== */}
 
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.12,
-          }}
-          variants={{
-            hidden: {},
-
-            visible: {
-              transition: {
-                staggerChildren: 0.16,
-                delayChildren: 0.15,
-              },
-            },
-          }}
+        <div
           className="
             mt-14
             grid
             grid-cols-1
             gap-6
 
-            md:mt-16
             md:grid-cols-2
+            md:mt-16
 
             lg:grid-cols-3
           "
@@ -423,116 +215,64 @@ export default function ServicesPreview() {
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              variants={popUp}
-              transition={{
-                duration: 0.9,
-                ease: [0.22, 1, 0.36, 1],
+              initial={{
+                opacity: 0,
+                y: 35,
               }}
-              className="h-full"
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.12,
+              }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.08,
+                ease: "easeOut",
+              }}
+              className="min-w-0"
             >
+              {/* =================================================
+                  SERVICE CARD
+              ================================================== */}
+
               <Link
                 href="/services"
                 className="
                   group
                   relative
                   flex
-                  h-full
-                  min-h-[360px]
+                  min-h-[330px]
+                  w-full
                   flex-col
                   overflow-hidden
-
-                  rounded-[2rem]
-
+                  rounded-[22px]
                   border
-                  border-purple-400/[0.13]
-
-                  bg-gradient-to-br
-                  from-purple-500/[0.075]
-                  via-white/[0.025]
-                  to-transparent
-
-                  backdrop-blur-2xl
-
+                  border-white/[0.12]
+                  bg-black
+                  px-7
+                  py-7
                   transition-all
-                  duration-700
+                  duration-500
+                  ease-out
 
-                  hover:-translate-y-2
+                  hover:-translate-y-[2px]
+                  hover:border-purple-500/[0.70]
+                  hover:bg-black
+                  hover:shadow-[0_0_45px_rgba(168,85,247,0.13),0_25px_70px_rgba(0,0,0,0.65)]
 
-                  hover:border-purple-400/[0.32]
+                  sm:min-h-[350px]
+                  sm:px-7
+                  sm:py-7
 
-                  hover:shadow-[0_25px_70px_rgba(0,0,0,0.35)]
-
-                  sm:min-h-[380px]
+                  lg:px-8
+                  lg:py-8
                 "
               >
                 {/* =================================================
-                    TOP GLASS HIGHLIGHT
-                ================================================== */}
-
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    scaleX: 0,
-                  }}
-                  whileInView={{
-                    opacity: 0.6,
-                    scaleX: 1,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                  }}
-                  transition={{
-                    duration: 1,
-                    delay: 0.35 + index * 0.15,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  aria-hidden="true"
-                  className="
-                    pointer-events-none
-                    absolute
-                    left-[8%]
-                    right-[8%]
-                    top-0
-                    h-px
-                    origin-center
-
-                    bg-gradient-to-r
-                    from-transparent
-                    via-purple-300/60
-                    to-transparent
-                  "
-                />
-
-                {/* =================================================
-                    TOP-LEFT PURPLE ATMOSPHERE
-                ================================================== */}
-
-                <div
-                  aria-hidden="true"
-                  className="
-                    pointer-events-none
-                    absolute
-                    -left-20
-                    -top-20
-                    h-56
-                    w-56
-                    rounded-full
-
-                    bg-purple-600/[0.07]
-
-                    blur-[90px]
-
-                    transition-all
-                    duration-700
-
-                    group-hover:scale-125
-                    group-hover:bg-purple-500/[0.16]
-                  "
-                />
-
-                {/* =================================================
-                    CENTER PURPLE GLOW
+                    INNER PURPLE GLOW
                 ================================================== */}
 
                 <div
@@ -542,25 +282,47 @@ export default function ServicesPreview() {
                     absolute
                     left-1/2
                     top-1/2
-                    h-40
-                    w-40
+                    h-[300px]
+                    w-[300px]
                     -translate-x-1/2
                     -translate-y-1/2
                     rounded-full
-
-                    bg-purple-500/[0.025]
-
-                    blur-[75px]
-
+                    bg-purple-600/[0.05]
+                    blur-[100px]
+                    opacity-0
                     transition-all
                     duration-700
-
-                    group-hover:bg-purple-500/[0.08]
+                    group-hover:scale-110
+                    group-hover:opacity-100
                   "
                 />
 
                 {/* =================================================
-                    CARD CONTENT
+                    TOP PURPLE HIGHLIGHT
+                ================================================== */}
+
+                <div
+                  aria-hidden="true"
+                  className="
+                    pointer-events-none
+                    absolute
+                    left-[8%]
+                    right-[8%]
+                    top-0
+                    h-px
+                    bg-gradient-to-r
+                    from-transparent
+                    via-purple-400
+                    to-transparent
+                    opacity-0
+                    transition-opacity
+                    duration-500
+                    group-hover:opacity-80
+                  "
+                />
+
+                {/* =================================================
+                    CONTENT
                 ================================================== */}
 
                 <div
@@ -569,122 +331,126 @@ export default function ServicesPreview() {
                     z-10
                     flex
                     h-full
+                    flex-1
                     flex-col
-
-                    p-7
-
-                    sm:p-9
-
-                    lg:p-10
                   "
                 >
-                  {/* =================================================
-                      PURPLE DOT
-                  ================================================== */}
+                  {/* SERVICE LABEL */}
 
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.15,
-                    }}
-                    variants={popSmall}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.25 + index * 0.16,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="
-                      relative
-                      flex
-                      h-10
-                      w-10
-                      items-center
-                      justify-center
-                    "
-                  >
-                    <PurpleGlowDot />
-                  </motion.div>
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="
+                        h-1.5
+                        w-1.5
+                        shrink-0
+                        rounded-full
+                        bg-purple-400
+                        shadow-[0_0_12px_rgba(168,85,247,0.9)]
+                        transition-all
+                        duration-300
+                        group-hover:scale-125
+                        group-hover:bg-purple-300
+                        group-hover:shadow-[0_0_18px_rgba(168,85,247,1)]
+                      "
+                    />
+
+                    <span
+                      className="
+                        text-[11px]
+                        font-semibold
+                        uppercase
+                        tracking-[0.18em]
+                        text-purple-400
+                        transition-colors
+                        duration-300
+                        group-hover:text-purple-300
+                      "
+                    >
+                      Service {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
 
                   {/* =================================================
                       TITLE + DESCRIPTION
                   ================================================== */}
 
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{
-                      once: true,
-                      amount: 0.15,
-                    }}
-                    variants={{
-                      hidden: {},
-
-                      visible: {
-                        transition: {
-                          staggerChildren: 0.1,
-                          delayChildren: 0.42 + index * 0.16,
-                        },
-                      },
-                    }}
-                    className="
-                      relative
-                      mt-7
-                    "
-                  >
-                    {/* TITLE */}
-
-                    <motion.h3
-                      variants={fadeUp}
-                      transition={{
-                        duration: 0.65,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
+                  <div className="mt-9">
+                    <h3
                       className="
-                        text-2xl
+                        max-w-[370px]
+                        text-[26px]
                         font-bold
-                        leading-tight
-                        tracking-[-0.03em]
+                        leading-[1.2]
+                        tracking-[-0.035em]
                         text-white
+                        transition-colors
+                        duration-300
+                        group-hover:text-purple-300
 
-                        sm:text-[1.65rem]
-
-                        lg:text-[1.8rem]
+                        sm:text-[28px]
                       "
                     >
                       {service.title}
-                    </motion.h3>
+                    </h3>
 
-                    {/* DESCRIPTION */}
-
-                    <motion.p
-                      variants={fadeUp}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
+                    <p
                       className="
-                        mt-4
-                        max-w-xl
-                        text-sm
-                        leading-7
-                        text-gray-500
-
+                        mt-5
+                        max-w-[410px]
+                        text-[14px]
+                        leading-[1.75]
+                        text-[#8296ad]
                         transition-colors
-                        duration-500
-
-                        group-hover:text-gray-300
+                        duration-300
+                        group-hover:text-[#a9b8c9]
                       "
                     >
                       {service.description}
-                    </motion.p>
-                  </motion.div>
+                    </p>
+                  </div>
+
+                  {/* =================================================
+                      BOTTOM ACTION
+                  ================================================== */}
+
+                  <div className="mt-auto pt-8">
+                    <span
+                      className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        text-[15px]
+                        font-semibold
+                        tracking-[-0.01em]
+                        text-purple-400
+                        transition-all
+                        duration-300
+                        group-hover:text-purple-300
+                        group-hover:[text-shadow:0_0_18px_rgba(168,85,247,0.35)]
+                      "
+                    >
+                      <span>Explore service</span>
+
+                      <span
+                        aria-hidden="true"
+                        className="
+                          text-[20px]
+                          font-normal
+                          leading-none
+                          transition-transform
+                          duration-300
+                          group-hover:translate-x-1
+                        "
+                      >
+                        →
+                      </span>
+                    </span>
+                  </div>
                 </div>
               </Link>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

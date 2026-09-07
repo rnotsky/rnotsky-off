@@ -5,16 +5,11 @@ import { motion } from "framer-motion";
 import RButton from "@/components/common/RButton";
 import Logo3D from "@/components/Logo3D";
 
-/* =========================================================
-   TEXT ANIMATION
-========================================================= */
-
 const fadeUp = {
   hidden: {
     opacity: 0,
     y: 35,
   },
-
   visible: {
     opacity: 1,
     y: 0,
@@ -27,7 +22,6 @@ const buttonPop = {
     y: 20,
     scale: 0.92,
   },
-
   visible: {
     opacity: 1,
     y: 0,
@@ -35,85 +29,108 @@ const buttonPop = {
   },
 };
 
+const easeOut = [0.22, 1, 0.36, 1] as const;
+
 export default function HeroSection() {
   return (
     <section
       className="
         relative
+        isolate
         min-h-screen
-        overflow-hidden
+        w-full
+        max-w-[100vw]
+        overflow-x-clip
+        overflow-y-hidden
         bg-black
         text-white
       "
     >
-      {/* =====================================================
-          CENTER TOP PURPLE GLOW
-      ====================================================== */}
-
+      {/* TOP PURPLE ATMOSPHERE */}
       <div
         aria-hidden="true"
         className="
           pointer-events-none
           absolute
           left-1/2
-          top-0
-          z-0
-          h-[520px]
-          w-[900px]
-          -translate-x-1/2
-          rounded-full
-          bg-purple-700/[0.14]
-          blur-[160px]
-        "
-      />
-
-      {/* =====================================================
-          SECONDARY SOFT CENTER GLOW
-      ====================================================== */}
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-[170px]
-          z-0
-          h-[400px]
-          w-[700px]
-          -translate-x-1/2
-          rounded-full
-          bg-violet-600/[0.07]
-          blur-[140px]
-        "
-      />
-
-      {/* =====================================================
-          VERY SOFT LOWER ATMOSPHERE
-      ====================================================== */}
-
-      <div
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-[40%]
+          top-[-180px]
           z-0
           h-[420px]
-          w-[700px]
+          w-[760px]
+          max-w-[100vw]
+          -translate-x-1/2
+          rounded-full
+          bg-purple-700/[0.13]
+          blur-[150px]
+
+          sm:top-[-200px]
+          sm:h-[480px]
+          sm:w-[850px]
+
+          lg:h-[540px]
+          lg:w-[950px]
+        "
+      />
+
+      {/* SECOND PURPLE ATMOSPHERE */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-[130px]
+          z-0
+          h-[300px]
+          w-[520px]
+          max-w-[90vw]
+          -translate-x-1/2
+          rounded-full
+          bg-violet-600/[0.055]
+          blur-[120px]
+
+          sm:top-[160px]
+          sm:h-[380px]
+          sm:w-[650px]
+
+          lg:h-[430px]
+          lg:w-[750px]
+        "
+      />
+
+      {/* CENTER ATMOSPHERE */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-[48%]
+          z-0
+          h-[280px]
+          w-[280px]
+          max-w-[80vw]
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
-          bg-purple-600/[0.025]
-          blur-[150px]
+          bg-purple-600/[0.045]
+          blur-[100px]
+
+          sm:h-[360px]
+          sm:w-[360px]
+
+          md:h-[420px]
+          md:w-[420px]
+
+          lg:h-[480px]
+          lg:w-[480px]
+
+          xl:h-[540px]
+          xl:w-[540px]
         "
       />
 
-      {/* =====================================================
-          HERO CONTENT
-      ====================================================== */}
-
+      {/* MAIN HERO CONTENT */}
       <div
         className="
           relative
@@ -121,117 +138,122 @@ export default function HeroSection() {
           mx-auto
           flex
           min-h-screen
-          max-w-[1400px]
+          w-full
+          max-w-[1500px]
           flex-col
           items-center
           justify-center
-          gap-10
-          px-6
-          pb-16
+          px-5
+          pb-20
           pt-28
 
           sm:px-8
+          sm:pb-24
+          sm:pt-32
 
-          md:gap-12
           md:px-10
+          md:pb-28
           md:pt-32
 
           lg:flex-row
-          lg:gap-12
+          lg:gap-10
           lg:px-12
+          lg:pb-20
           lg:pt-24
 
           xl:gap-16
+          xl:px-16
         "
       >
-        {/* =================================================
-            LEFT CONTENT
-            ONLY TEXT + BUTTONS ANIMATED
-        ================================================== */}
-
+        {/* LEFT CONTENT */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={{
             hidden: {},
-
             visible: {
               transition: {
                 staggerChildren: 0.13,
-                delayChildren: 0.2,
+                delayChildren: 0.18,
               },
             },
           }}
           className="
             relative
             z-20
+            flex
             w-full
+            flex-col
+            items-center
             text-center
 
             lg:w-[52%]
+            lg:items-start
             lg:text-left
           "
         >
-          {/* =================================================
-              RNOTSKY LABEL
-          ================================================== */}
-
+          {/* LABEL */}
           <motion.div
             variants={fadeUp}
             transition={{
               duration: 0.7,
-              ease: [0.22, 1, 0.36, 1],
+              ease: easeOut,
             }}
             className="
               inline-flex
               items-center
               rounded-full
               border
-              border-purple-500/[0.2]
+              border-purple-500/[0.20]
               bg-purple-500/[0.045]
               px-4
               py-2
+              shadow-[0_0_30px_rgba(168,85,247,0.05)]
               backdrop-blur-xl
             "
           >
             <span
               className="
-                text-[11px]
+                text-[10px]
                 font-semibold
                 uppercase
-                tracking-[0.35em]
+                tracking-[0.32em]
                 text-purple-300
+
+                sm:text-[11px]
+                sm:tracking-[0.35em]
               "
             >
               Welcome to Rnotsky
             </span>
           </motion.div>
 
-          {/* =================================================
-              HEADING
-          ================================================== */}
-
+          {/* MAIN HEADING */}
           <motion.h1
             variants={fadeUp}
             transition={{
               duration: 0.9,
-              ease: [0.22, 1, 0.36, 1],
+              ease: easeOut,
             }}
             className="
               mt-7
-              text-4xl
+              max-w-[850px]
+              text-[42px]
               font-extrabold
-              leading-[1]
-              tracking-[-0.04em]
+              leading-[0.95]
+              tracking-[-0.055em]
 
               sm:text-5xl
+              sm:leading-[0.96]
 
               md:text-6xl
 
-              lg:text-left
-              lg:text-[4.4rem]
+              lg:mt-8
+              lg:text-[4.5rem]
 
-              xl:text-[5rem]
+              xl:text-[5.3rem]
+
+              2xl:text-[5.7rem]
             "
           >
             <span className="block">
@@ -250,75 +272,71 @@ export default function HeroSection() {
                 text-transparent
               "
             >
-              WHAT'S NEXT
+              WHAT&apos;S NEXT
             </span>
           </motion.h1>
 
-          {/* =================================================
-              DESCRIPTION
-          ================================================== */}
-
+          {/* DESCRIPTION */}
           <motion.p
             variants={fadeUp}
             transition={{
               duration: 0.8,
-              ease: [0.22, 1, 0.36, 1],
+              ease: easeOut,
             }}
             className="
               mx-auto
               mt-7
-              max-w-[600px]
-              text-base
+              max-w-[620px]
+              text-[15px]
               leading-7
-              text-gray-400
+              text-[#8296ad]
 
-              sm:text-[17px]
-              sm:leading-8
+              sm:text-base
+              sm:leading-7
+
+              md:text-[17px]
+              md:leading-8
 
               lg:mx-0
-              lg:text-[17px]
             "
           >
-            RNOTSKY builds intelligent technology across AI,
-            software, robotics, and computer vision — engineered
-            to solve complex problems, transform bold ideas,
-            and shape what comes next.
+            RNOTSKY builds intelligent technology across AI, software,
+            robotics, and computer vision — engineered to solve complex
+            problems, transform bold ideas, and shape what comes next.
           </motion.p>
 
-          {/* =================================================
-              BUTTONS
-          ================================================== */}
-
+          {/* BUTTONS */}
           <motion.div
             variants={{
               hidden: {},
-
               visible: {
                 transition: {
                   staggerChildren: 0.1,
+                  delayChildren: 0.08,
                 },
               },
             }}
             className="
               mt-9
               flex
+              w-full
               flex-col
               items-center
-              gap-4
+              justify-center
+              gap-3
 
+              sm:w-auto
               sm:flex-row
-              sm:justify-center
+              sm:gap-4
 
               lg:justify-start
             "
           >
-            {/* PRIMARY */}
-
             <motion.div
               variants={buttonPop}
               transition={{
                 duration: 0.65,
-                ease: [0.22, 1, 0.36, 1],
+                ease: easeOut,
               }}
             >
               <RButton
@@ -330,13 +348,11 @@ export default function HeroSection() {
               </RButton>
             </motion.div>
 
-            {/* SECONDARY */}
-
             <motion.div
               variants={buttonPop}
               transition={{
                 duration: 0.65,
-                ease: [0.22, 1, 0.36, 1],
+                ease: easeOut,
               }}
             >
               <RButton
@@ -350,14 +366,11 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
 
-        {/* =================================================
-            RIGHT CONTENT — 3D LOGO
-            STATIC
-        ================================================== */}
-
+        {/* RIGHT / 3D MODEL */}
         <div
           className="
             relative
+            z-10
             flex
             w-full
             items-center
@@ -366,10 +379,7 @@ export default function HeroSection() {
             lg:w-[48%]
           "
         >
-          {/* =================================================
-              LOGO ATMOSPHERE
-          ================================================== */}
-
+          {/* MODEL GLOW */}
           <div
             aria-hidden="true"
             className="
@@ -377,68 +387,87 @@ export default function HeroSection() {
               absolute
               left-1/2
               top-1/2
-              h-[320px]
-              w-[320px]
+              h-[240px]
+              w-[240px]
+              max-w-[75vw]
               -translate-x-1/2
               -translate-y-1/2
               rounded-full
-              bg-purple-600/[0.05]
-              blur-[110px]
+              bg-purple-600/[0.045]
+              blur-[90px]
 
-              sm:h-[400px]
-              sm:w-[400px]
+              sm:h-[320px]
+              sm:w-[320px]
+
+              md:h-[380px]
+              md:w-[380px]
 
               lg:h-[440px]
               lg:w-[440px]
+
+              xl:h-[500px]
+              xl:w-[500px]
             "
           />
 
-          {/* =================================================
-              3D LOGO
-
-              Slightly bigger + shifted right
-              on all screen sizes.
-          ================================================== */}
-
+          {/* 3D MODEL CONTAINER */}
           <div
             className="
               relative
               z-10
               flex
+              h-[290px]
               w-full
+              max-w-[360px]
+              translate-y-8
               items-center
               justify-center
 
-              /* MOBILE */
-              scale-[0.98]
-              translate-x-5
+              sm:h-[390px]
+              sm:max-w-[460px]
+              sm:translate-y-10
 
-              /* SMALL TABLET */
-              sm:scale-[1.02]
-              sm:translate-x-5
+              md:h-[450px]
+              md:max-w-[520px]
+              md:translate-y-12
 
-              /* TABLET */
-              md:scale-[1.05]
-              md:translate-x-6
-
-              /* DESKTOP */
-              lg:scale-[1.05]
-              lg:translate-x-8
+              /* LAPTOP — MOVE MODEL UP */
+              lg:h-[500px]
+              lg:max-w-[560px]
+              lg:translate-y-8
 
               /* LARGE DESKTOP */
-              xl:scale-[1.08]
-              xl:translate-x-10
+              xl:h-[560px]
+              xl:max-w-[620px]
+              xl:translate-y-10
+
+              /* 2K / 4K */
+              2xl:h-[620px]
+              2xl:max-w-[680px]
+              2xl:translate-y-10
             "
           >
-            <Logo3D />
+            <div
+              className="
+                relative
+                flex
+                h-full
+                w-full
+                items-center
+                justify-center
+
+                [&>canvas]:!h-full
+                [&>canvas]:!w-full
+                [&>canvas]:max-w-full
+              "
+            >
+              <Logo3D />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* =====================================================
-          BOTTOM FADE
-      ====================================================== */}
-
+      {/* BOTTOM FADE */}
       <div
         aria-hidden="true"
         className="
@@ -447,10 +476,11 @@ export default function HeroSection() {
           bottom-0
           left-0
           z-20
-          h-24
+          h-28
           w-full
           bg-gradient-to-t
           from-black
+          via-black/60
           to-transparent
         "
       />
