@@ -1,11 +1,14 @@
 import type { MetadataRoute } from "next";
 
+const BASE_URL = "https://rnotsky.com";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://rnotsky.com/sitemap.xml",
+
+    sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

@@ -8,6 +8,7 @@ import "./globals.css";
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
   description:
     "Rnotsky builds AI, software, computer vision, robotics, and next-generation technology.",
 
+  applicationName: "Rnotsky",
+
   alternates: {
     canonical: "https://rnotsky.com",
   },
@@ -28,12 +31,27 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 
   openGraph: {
     type: "website",
     url: "https://rnotsky.com",
     siteName: "Rnotsky",
+    title: "Rnotsky — Building Tomorrow's Technology",
+    description:
+      "Rnotsky builds AI, software, computer vision, robotics, and next-generation technology.",
+    locale: "en_US",
+  },
+
+  twitter: {
+    card: "summary_large_image",
     title: "Rnotsky — Building Tomorrow's Technology",
     description:
       "Rnotsky builds AI, software, computer vision, robotics, and next-generation technology.",
