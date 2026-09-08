@@ -9,7 +9,7 @@ const channels = [
     description:
       "Join the RNOTSKY community, discuss technology, share ideas and connect with other builders.",
     label: "Community",
-    href: "#",
+    href: "https://discord.gg/aSfKrUKagq",
   },
   {
     name: "YouTube",
